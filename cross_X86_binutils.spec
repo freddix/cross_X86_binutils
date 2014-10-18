@@ -2,14 +2,13 @@
 
 Summary:	GNU Binary Utility Development Utilities
 Name:		cross_X86_binutils
-Version:	2.22.52.0.4
+Version:	2.24
 Release:	1
 License:	GPL
 Group:		Development/Tools
-#Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.bz2
-Source0:	http://www.kernel.org/pub/linux/devel/binutils/binutils-%{version}.tar.bz2
-# Source0-md5:	2a5beea06d6f3e21107365b91184e11c
-Patch0:		binutils-bug-14319.patch
+Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.gz
+# Source0-md5:	a5dd5dd2d212a282cc1d4a84633e0d88
+#Source0:	http://www.kernel.org/pub/linux/devel/binutils/binutils-%{version}.tar.bz2
 URL:		http://sources.redhat.com/binutils/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -20,7 +19,7 @@ BuildRequires:	perl-tools-pod
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		target		i686-freddix-linux
+%define		target		i586-freddix-linux
 %define		arch		%{_prefix}/%{target}
 %define		_libdir		/usr/lib
 %define		_libexecdir	%{_libdir}
@@ -32,7 +31,6 @@ A set of programs to assemble and manipulate binary and object files.
 
 %prep
 %setup -qn %{rname}-%{version}
-%patch0 -p1
 
 %build
 install -d obj-%{target}
@@ -52,6 +50,7 @@ LDFLAGS="%{rpmldflags}"		\
 	--disable-debug		\
 	--disable-nls		\
 	--disable-shared	\
+	--disable-werror	\
 	--with-lib-path=%{_libdir}	\
 	--with-sysroot=%{arch}	\
 	--with-tooldir=%{_prefix}
